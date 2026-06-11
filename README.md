@@ -33,7 +33,7 @@ The design was verified using a highly thorough testbench (`stimulus.v`) trackin
 * **Worst-Case Saturation:** Asserting maximum values across all ports simultaneously (e.g., at 150ns: `0xf + 0xf + 1 = 0xf` with `cout = 1`).
 
 ### Behavioral Simulation Waveform
-![Behavioral Simulation Waveform](simulation.png)
+![Behavioral Simulation Waveform](DOCS/simulation.png)
 
 ---
 
@@ -44,12 +44,12 @@ The design was mapped and analyzed through two distinct compilation stages in Vi
 ### 1. Gate-Level RTL Schematic
 Before hardware optimization, the elaborated design maps directly to explicit logic components. This view confirms the pure parallel architecture of the Lookahead logic, showing the discrete layers of `RTL_XOR` gates for propagation, `RTL_AND` arrays for generation, and cascading `RTL_OR` trees resolving the carry channels.
 
-![Elaborated Gate-Level Netlist](gate-level-netlist.png)
+![Elaborated Gate-Level Netlist](DOCS/gate-level-netlist.png)
 
 ### 2. Synthesized FPGA Mapping
 Once fully synthesized for target hardware, Vivado collapses the abstract gate groupings into highly efficient device primitives. Because Xilinx FPGAs utilize programmable logic cells rather than individual transistors, the complex, nested lookahead equations are compressed into fast Look-Up Tables (**LUT3** and **LUT5**) to drastically reduce internal routing path delays.
 
-![Synthesized FPGA Netlist](fpga-netlist.png)
+![Synthesized FPGA Netlist](DOCS/fpga-netlist.png)
 
 ### Hardware Resource Summary:
 * **IBUF / OBUF:** Input and Output hardware buffers handling signal isolation and current amplification.
@@ -61,9 +61,10 @@ Once fully synthesized for target hardware, Vivado collapses the abstract gate g
 ## 📂 Repository Structure
 
 ```text
-├── lookahead.v           # Core 4-Bit Carry Lookahead Adder Design
-├── stimulus.v            # Comprehensive Testbench with automated verification
-├── simulation.png        # Verified timing waveform screenshot
-├── gate-level-netlist.png # Elaborated logic gate schematic
-├── fpga-netlist.png      # Synthesized FPGA LUT primitive mapping
-└── README.md             # Project Documentation
+├── lookahead.v             # Core 4-Bit Carry Lookahead Adder Design
+├── stimulus.v              # Comprehensive Testbench with automated verification
+├── DOCS/                   # Design documentation and schematics
+│   ├── simulation.png        # Verified timing waveform screenshot
+│   ├── gate-level-netlist.png # Elaborated logic gate schematic
+│   └── fpga-netlist.png      # Synthesized FPGA LUT primitive mapping
+└── README.md               # Project Documentation
